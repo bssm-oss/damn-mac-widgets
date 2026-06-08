@@ -36,11 +36,12 @@ struct FocusWidgetView: View {
                                 widgetManager.startFocus()
                             }
                         }
+                        .buttonStyle(GlassActionButtonStyle(cornerRadius: 10, horizontalPadding: 10, verticalPadding: 5))
 
                         Button("Reset") {
                             widgetManager.resetFocus()
                         }
-                        .buttonStyle(.borderless)
+                        .buttonStyle(GlassActionButtonStyle(cornerRadius: 10, horizontalPadding: 10, verticalPadding: 5))
                         .foregroundStyle(.secondary)
 
                         Spacer()

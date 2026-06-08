@@ -58,7 +58,7 @@ struct TodoWidgetView: View {
                             .font(.system(size: 12, weight: .semibold))
                             .frame(width: 28, height: 28)
                     }
-                    .buttonStyle(.plain)
+                    .buttonStyle(GlassActionButtonStyle(cornerRadius: 999, horizontalPadding: 0, verticalPadding: 0))
                     .foregroundStyle(.primary)
                     .background(.clear, in: Circle())
                     .disabled(draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
@@ -78,6 +78,7 @@ private struct TodoRow: View {
     let item: TodoItem
     let onToggle: () -> Void
     let onDelete: () -> Void
+    @State private var isHovering = false
 
     var body: some View {
         HStack(spacing: 8) {
@@ -85,7 +86,7 @@ private struct TodoRow: View {
                 Image(systemName: item.isDone ? "checkmark.circle.fill" : "circle")
                     .foregroundStyle(item.isDone ? .primary : .secondary)
             }
-            .buttonStyle(.plain)
+            .buttonStyle(GlassActionButtonStyle(cornerRadius: 999, horizontalPadding: 4, verticalPadding: 4))
 
             Text(item.title)
                 .font(.system(size: 14, weight: .medium, design: .rounded))
@@ -97,11 +98,18 @@ private struct TodoRow: View {
                 Image(systemName: "xmark")
                     .font(.caption2)
             }
-            .buttonStyle(.plain)
+            .buttonStyle(GlassActionButtonStyle(cornerRadius: 999, horizontalPadding: 4, verticalPadding: 4))
             .foregroundStyle(.secondary)
         }
         .padding(.vertical, 8)
         .padding(.horizontal, 10)
         .liquidGlassBackground(cornerRadius: 12)
+        .overlay {
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .fill(Color.white.opacity(isHovering ? 0.04 : 0))
+        }
+        .scaleEffect(isHovering ? 1.01 : 1.0)
+        .onHover { isHovering = $0 }
+        .animation(.snappy(duration: 0.18), value: isHovering)
     }
 }

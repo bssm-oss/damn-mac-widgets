@@ -19,7 +19,7 @@ struct CalendarWidgetView: View {
                     Button("Refresh") {
                         widgetManager.refreshCalendar()
                     }
-                    .buttonStyle(.borderless)
+                    .buttonStyle(GlassActionButtonStyle(cornerRadius: 10, horizontalPadding: 10, verticalPadding: 5))
                     .font(.caption.weight(.medium))
                     .foregroundStyle(.primary)
                 }
@@ -47,6 +47,7 @@ struct CalendarWidgetView: View {
 
 private struct CalendarEventRow: View {
     let event: CalendarEventSummary
+    @State private var isHovering = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -77,5 +78,12 @@ private struct CalendarEventRow: View {
         .padding(.vertical, 8)
         .padding(.horizontal, 10)
         .liquidGlassBackground(cornerRadius: 10)
+        .overlay {
+            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                .fill(Color.white.opacity(isHovering ? 0.04 : 0))
+        }
+        .scaleEffect(isHovering ? 1.01 : 1.0)
+        .onHover { isHovering = $0 }
+        .animation(.snappy(duration: 0.18), value: isHovering)
     }
 }

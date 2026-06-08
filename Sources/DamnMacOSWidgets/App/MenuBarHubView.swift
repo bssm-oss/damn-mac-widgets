@@ -77,6 +77,7 @@ struct MenuBarHubView: View {
             Button("Show All") {
                 widgetManager.showAll()
             }
+            .buttonStyle(GlassActionButtonStyle(cornerRadius: 10, horizontalPadding: 10, verticalPadding: 5))
             .disabled(!widgetManager.hasHiddenWidgets)
 
             Spacer()
@@ -84,6 +85,7 @@ struct MenuBarHubView: View {
             Button("Hide All") {
                 widgetManager.hideAll()
             }
+            .buttonStyle(GlassActionButtonStyle(cornerRadius: 10, horizontalPadding: 10, verticalPadding: 5))
             .disabled(!widgetManager.hasVisibleWidgets)
 
             Spacer()
@@ -91,8 +93,8 @@ struct MenuBarHubView: View {
             Button("Quit") {
                 NSApplication.shared.terminate(nil)
             }
+            .buttonStyle(GlassActionButtonStyle(cornerRadius: 10, horizontalPadding: 10, verticalPadding: 5))
         }
-        .buttonStyle(.borderless)
         .font(.caption.weight(.medium))
         .foregroundStyle(.primary)
     }
@@ -115,6 +117,7 @@ private struct WidgetToggleRow: View {
     let isVisible: Bool
     let isAvailable: Bool
     let onToggle: () -> Void
+    @State private var isHovering = false
 
     var body: some View {
         Button(action: onToggle) {
@@ -142,9 +145,21 @@ private struct WidgetToggleRow: View {
                 Image(systemName: isVisible ? "checkmark.circle.fill" : "circle")
                     .foregroundStyle(isVisible ? .primary : .secondary)
             }
-            .padding(.vertical, 6)
+            .padding(.vertical, 8)
+            .padding(.horizontal, 10)
+            .background {
+                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    .fill(Color.white.opacity(isHovering ? 0.08 : 0.03))
+            }
+            .overlay {
+                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    .strokeBorder(Color.white.opacity(isHovering ? 0.12 : 0.05), lineWidth: 0.8)
+            }
+            .scaleEffect(isHovering ? 1.01 : 1.0)
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
+        .onHover { isHovering = $0 }
+        .animation(.snappy(duration: 0.18), value: isHovering)
     }
 }

@@ -3,6 +3,7 @@ import SwiftUI
 struct WidgetChrome<Content: View>: View {
     @EnvironmentObject private var widgetManager: WidgetManager
     @State private var resizeStartSize: CGSize?
+    @State private var isHovering = false
 
     let kind: WidgetKind
     @ViewBuilder let content: () -> Content
@@ -19,6 +20,24 @@ struct WidgetChrome<Content: View>: View {
         .padding(16)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .liquidGlassBackground(cornerRadius: 20)
+        .overlay {
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .fill(
+                    LinearGradient(
+                        colors: [
+                            Color.white.opacity(isHovering ? 0.14 : 0.06),
+                            Color.clear
+                        ],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+                .blendMode(.screen)
+                .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+        }
+        .scaleEffect(isHovering ? 1.006 : 1.0)
+        .animation(.snappy(duration: 0.18), value: isHovering)
+        .onHover { isHovering = $0 }
     }
 
     private var header: some View {
@@ -49,6 +68,8 @@ struct WidgetChrome<Content: View>: View {
             .foregroundStyle(.secondary)
             .frame(width: 22, height: 22)
             .liquidGlassBackground(cornerRadius: 7)
+            .scaleEffect(isHovering ? 1.04 : 1.0)
+            .opacity(isHovering ? 1 : 0.65)
             .padding(8)
             .contentShape(Rectangle())
             .gesture(
