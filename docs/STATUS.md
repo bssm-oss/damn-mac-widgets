@@ -73,7 +73,7 @@ damn-mac-widgets/
     │   ├── GitHubService.swift         # gh CLI notification fetch
     │   └── CommandRunner.swift         # 외부 커맨드 실행
     ├── Widgets/
-    │   ├── WidgetChrome.swift          # 공통 위젯 크롬 (Liquid Glass style)
+    │   ├── WidgetChrome.swift          # 공통 위젯 크롬 (SwiftUI glassEffect)
     │   ├── NowWidgetView.swift
     │   ├── TodoWidgetView.swift
     │   ├── NoteWidgetView.swift
@@ -98,7 +98,7 @@ Tests/DamnMacOSWidgetsTests/
    - `NSPanel` + desktop window level
    - 바탕화면 레이어에 붙어 있음 (Notification Center 위젯 아님)
    - 드래그로 이동, 위치 저장
-   - Liquid Glass 스타일의 투명 재질 + 라운드 코너 UI
+   - SwiftUI `glassEffect` 기반 Liquid Glass + 라운드 코너 UI
 
 3. **동작하는 위젯 6개**
 

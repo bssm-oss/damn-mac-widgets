@@ -90,6 +90,6 @@ private struct GitHubActivityRow: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.vertical, 8)
         .padding(.horizontal, 10)
-        .liquidGlassBackground(cornerRadius: 10, tintOpacity: 0.02, strokeOpacity: 0.06)
+        .liquidGlassBackground(cornerRadius: 10)
     }
 }

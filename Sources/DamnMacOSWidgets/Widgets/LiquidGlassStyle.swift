@@ -1,38 +1,25 @@
 import SwiftUI
 
 extension View {
+    @ViewBuilder
     func liquidGlassBackground(
-        cornerRadius: CGFloat,
-        tintOpacity: Double = 0.04,
-        strokeOpacity: Double = 0.08
+        cornerRadius: CGFloat
     ) -> some View {
-        background {
-            RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                .fill(.ultraThinMaterial)
-                .overlay {
-                    RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                        .fill(
-                            LinearGradient(
-                                colors: [
-                                    Color.white.opacity(0.32),
-                                    Color.white.opacity(0.12),
-                                    Color.white.opacity(0.04),
-                                    Color.clear
-                                ],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                        .blendMode(.screen)
-                }
-                .overlay {
-                    RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                        .fill(Color.white.opacity(tintOpacity))
-                }
-                .overlay {
-                    RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                        .strokeBorder(Color.white.opacity(strokeOpacity), lineWidth: 0.8)
-                }
+        if #available(macOS 26.0, *) {
+            glassEffect(.clear, in: RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+        } else {
+            background {
+                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                    .fill(.ultraThinMaterial)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                            .fill(Color.white.opacity(0.03))
+                    }
+                    .overlay {
+                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                            .strokeBorder(Color.white.opacity(0.08), lineWidth: 0.8)
+                    }
+            }
         }
     }
 }

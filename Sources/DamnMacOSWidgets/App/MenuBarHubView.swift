@@ -12,7 +12,7 @@ struct MenuBarHubView: View {
         }
         .padding(14)
         .frame(width: 340)
-        .liquidGlassBackground(cornerRadius: 24, tintOpacity: 0.03, strokeOpacity: 0.06)
+        .liquidGlassBackground(cornerRadius: 24)
     }
 
     private var header: some View {
@@ -34,7 +34,7 @@ struct MenuBarHubView: View {
                 .foregroundStyle(.secondary)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 5)
-                .liquidGlassBackground(cornerRadius: 999, tintOpacity: 0.02, strokeOpacity: 0.06)
+                .liquidGlassBackground(cornerRadius: 999)
         }
     }
 
@@ -130,7 +130,7 @@ private struct WidgetToggleRow: View {
                             .foregroundStyle(.secondary)
                             .padding(.horizontal, 6)
                             .padding(.vertical, 2)
-                            .liquidGlassBackground(cornerRadius: 999, tintOpacity: 0.02, strokeOpacity: 0.06)
+                            .liquidGlassBackground(cornerRadius: 999)
                     }
                     Text(kind.subtitle)
                         .font(.caption)

@@ -9,7 +9,7 @@ A collection of small, glanceable desktop widgets for macOS. No login, no cloud 
 - **Glanceable** — see what matters without opening an app
 - **Local-first** — your data stays on your Mac
 - **Lightweight** — small footprint, fast launch, no bloat
-- **Beautiful** — native SwiftUI, subtle vibrancy, intentional typography
+- **Beautiful** — native SwiftUI, Liquid Glass, intentional typography
 
 ## Widgets
 

@@ -18,7 +18,7 @@ struct WidgetChrome<Content: View>: View {
         }
         .padding(16)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .liquidGlassBackground(cornerRadius: 20, tintOpacity: 0.03, strokeOpacity: 0.06)
+        .liquidGlassBackground(cornerRadius: 20)
     }
 
     private var header: some View {
@@ -48,7 +48,7 @@ struct WidgetChrome<Content: View>: View {
             .font(.system(size: 10, weight: .semibold))
             .foregroundStyle(.secondary)
             .frame(width: 22, height: 22)
-            .liquidGlassBackground(cornerRadius: 7, tintOpacity: 0.02, strokeOpacity: 0.07)
+            .liquidGlassBackground(cornerRadius: 7)
             .padding(8)
             .contentShape(Rectangle())
             .gesture(

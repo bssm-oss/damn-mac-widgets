@@ -21,7 +21,7 @@ struct NowWidgetView: View {
                     .background(Color.clear)
                     .padding(.vertical, 8)
                     .padding(.horizontal, 12)
-                    .liquidGlassBackground(cornerRadius: 14, tintOpacity: 0.02, strokeOpacity: 0.06)
+                    .liquidGlassBackground(cornerRadius: 14)
             }
         }
     }

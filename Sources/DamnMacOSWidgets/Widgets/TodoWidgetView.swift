@@ -51,7 +51,7 @@ struct TodoWidgetView: View {
                         .background(Color.clear)
                         .padding(.vertical, 8)
                         .padding(.horizontal, 12)
-                        .liquidGlassBackground(cornerRadius: 12, tintOpacity: 0.02, strokeOpacity: 0.06)
+                        .liquidGlassBackground(cornerRadius: 12)
 
                     Button(action: addDraft) {
                         Image(systemName: "plus")
@@ -102,6 +102,6 @@ private struct TodoRow: View {
         }
         .padding(.vertical, 8)
         .padding(.horizontal, 10)
-        .liquidGlassBackground(cornerRadius: 12, tintOpacity: 0.02, strokeOpacity: 0.06)
+        .liquidGlassBackground(cornerRadius: 12)
     }
 }
