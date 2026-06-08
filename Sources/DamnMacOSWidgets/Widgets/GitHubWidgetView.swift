@@ -11,13 +11,13 @@ struct GitHubWidgetView: View {
                     VStack(alignment: .leading, spacing: 2) {
                         Text(widgetManager.githubSnapshot.statusMessage)
                             .font(.caption)
-                            .foregroundStyle(.white.opacity(0.62))
+                            .foregroundStyle(.secondary)
                             .fixedSize(horizontal: false, vertical: true)
 
                         if let username = widgetManager.githubSnapshot.username {
                             Text("@\(username)")
                                 .font(.caption2.weight(.medium))
-                                .foregroundStyle(.white.opacity(0.48))
+                                .foregroundStyle(.secondary)
                         }
                     }
 
@@ -28,13 +28,13 @@ struct GitHubWidgetView: View {
                     }
                     .buttonStyle(.borderless)
                     .font(.caption.weight(.medium))
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.primary)
                 }
 
                 if widgetManager.githubSnapshot.items.isEmpty {
                     Text("No unread GitHub notifications.")
                         .font(.subheadline)
-                        .foregroundStyle(.white.opacity(0.42))
+                        .foregroundStyle(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
                 } else {
                     ScrollView {
@@ -55,7 +55,7 @@ struct GitHubWidgetView: View {
                 }
                 .buttonStyle(.borderless)
                 .font(.caption.weight(.medium))
-                .foregroundStyle(.secondary)
+                .foregroundStyle(.primary)
             }
         }
     }
@@ -75,7 +75,7 @@ private struct GitHubActivityRow: View {
 
                 Text(item.updatedAtText)
                     .font(.caption)
-                    .foregroundStyle(.white.opacity(0.68))
+                    .foregroundStyle(.secondary)
             }
 
             HStack(spacing: 6) {
@@ -84,12 +84,12 @@ private struct GitHubActivityRow: View {
                 Text(item.reason)
             }
             .font(.caption2)
-            .foregroundStyle(.white.opacity(0.45))
+            .foregroundStyle(.secondary)
             .lineLimit(1)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.vertical, 8)
         .padding(.horizontal, 10)
-        .background(.white.opacity(0.06), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
     }
 }

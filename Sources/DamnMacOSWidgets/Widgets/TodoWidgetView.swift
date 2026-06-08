@@ -15,17 +15,17 @@ struct TodoWidgetView: View {
                 HStack {
                     Text("\(todos.count) items")
                         .font(.caption2.weight(.semibold))
-                        .foregroundStyle(.white.opacity(0.55))
+                        .foregroundStyle(.secondary)
                     Spacer()
                     Text("\(todos.filter(\.isDone).count) done")
                         .font(.caption2.weight(.semibold))
-                        .foregroundStyle(widgetManager.appState.todos.isEmpty ? .white.opacity(0.35) : .white.opacity(0.7))
+                        .foregroundStyle(.secondary)
                 }
 
                 if todos.isEmpty {
                     Text("Nothing here yet.")
                         .font(.subheadline.weight(.medium))
-                        .foregroundStyle(.white.opacity(0.45))
+                        .foregroundStyle(.secondary)
                         .padding(.vertical, 10)
                 } else {
                     ScrollView {
@@ -45,12 +45,12 @@ struct TodoWidgetView: View {
                     TextField("Add a task…", text: $draft)
                         .textFieldStyle(.plain)
                         .font(.system(size: 14, weight: .medium, design: .rounded))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(.primary)
                         .focused($isDraftFocused)
                         .onSubmit(addDraft)
                         .padding(.vertical, 8)
                         .padding(.horizontal, 12)
-                        .background(Color.white.opacity(0.06), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
 
                     Button(action: addDraft) {
                         Image(systemName: "plus")
@@ -58,8 +58,8 @@ struct TodoWidgetView: View {
                             .frame(width: 28, height: 28)
                     }
                     .buttonStyle(.plain)
-                    .foregroundStyle(widgetManager.appState.widgets[WidgetKind.todo.rawValue]?.isVisible == true ? WidgetKind.todo.accentColor : .white.opacity(0.7))
-                    .background(WidgetKind.todo.accentColor.opacity(0.14), in: Circle())
+                    .foregroundStyle(.primary)
+                    .background(Color.white.opacity(0.08), in: Circle())
                     .disabled(draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                 }
             }
@@ -82,14 +82,14 @@ private struct TodoRow: View {
         HStack(spacing: 8) {
             Button(action: onToggle) {
                 Image(systemName: item.isDone ? "checkmark.circle.fill" : "circle")
-                    .foregroundStyle(item.isDone ? WidgetKind.todo.accentColor : .white.opacity(0.35))
+                    .foregroundStyle(item.isDone ? .primary : .secondary)
             }
             .buttonStyle(.plain)
 
             Text(item.title)
                 .font(.system(size: 14, weight: .medium, design: .rounded))
                 .strikethrough(item.isDone)
-                .foregroundStyle(item.isDone ? .white.opacity(0.38) : .white)
+                .foregroundStyle(item.isDone ? .secondary : .primary)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
             Button(action: onDelete) {
@@ -97,10 +97,10 @@ private struct TodoRow: View {
                     .font(.caption2)
             }
             .buttonStyle(.plain)
-            .foregroundStyle(.white.opacity(0.35))
+            .foregroundStyle(.secondary)
         }
         .padding(.vertical, 8)
         .padding(.horizontal, 10)
-        .background(Color.white.opacity(0.05), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
     }
 }

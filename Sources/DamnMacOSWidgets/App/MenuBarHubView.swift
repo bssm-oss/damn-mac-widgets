@@ -18,20 +18,27 @@ struct MenuBarHubView: View {
         .frame(width: 340)
         .background {
             RoundedRectangle(cornerRadius: 24, style: .continuous)
-                .fill(
-                    LinearGradient(
-                        colors: [
-                            Color(red: 0.05, green: 0.06, blue: 0.08),
-                            Color(red: 0.08, green: 0.09, blue: 0.12)
-                        ],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
+                .fill(.ultraThinMaterial)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 24, style: .continuous)
+                        .fill(
+                            LinearGradient(
+                                colors: [
+                                    Color.white.opacity(0.14),
+                                    Color.white.opacity(0.03),
+                                    Color.black.opacity(0.10)
+                                ],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .blendMode(.screen)
+                }
                 .overlay(
                     RoundedRectangle(cornerRadius: 24, style: .continuous)
-                        .strokeBorder(Color.white.opacity(0.10), lineWidth: 1)
+                        .strokeBorder(Color.white.opacity(0.14), lineWidth: 1)
                 )
+                .shadow(color: .black.opacity(0.22), radius: 22, x: 0, y: 12)
         }
     }
 
@@ -40,10 +47,10 @@ struct MenuBarHubView: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text("damn-macos-widgets")
                     .font(.system(size: 19, weight: .semibold, design: .rounded))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.primary)
                 Text("Small, sharp widgets that stay out of the way.")
                     .font(.caption)
-                    .foregroundStyle(.white.opacity(0.65))
+                    .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
 
@@ -51,10 +58,10 @@ struct MenuBarHubView: View {
 
             Text("LOCAL")
                 .font(.caption2.weight(.semibold))
-                .foregroundStyle(Color(red: 0.82, green: 0.90, blue: 1.0))
+                .foregroundStyle(.secondary)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 5)
-                .background(Color.white.opacity(0.08), in: Capsule())
+                .background(Color.white.opacity(0.06), in: Capsule())
         }
     }
 
@@ -64,10 +71,10 @@ struct MenuBarHubView: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Launch at login")
                         .font(.system(size: 14, weight: .semibold, design: .rounded))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(.primary)
                     Text(widgetManager.launchAtLoginStatusText)
                         .font(.caption)
-                        .foregroundStyle(.white.opacity(0.65))
+                        .foregroundStyle(.secondary)
                 }
             }
             .toggleStyle(.switch)
@@ -114,7 +121,7 @@ struct MenuBarHubView: View {
         }
         .buttonStyle(.borderless)
         .font(.caption.weight(.medium))
-        .foregroundStyle(.white.opacity(0.75))
+        .foregroundStyle(.primary)
     }
 
     private var launchAtLoginBinding: Binding<Bool> {
@@ -129,10 +136,10 @@ struct MenuBarHubView: View {
             .padding(12)
             .background(
                 RoundedRectangle(cornerRadius: 18, style: .continuous)
-                    .fill(Color.white.opacity(0.04))
+                    .fill(.thinMaterial)
                     .overlay(
                         RoundedRectangle(cornerRadius: 18, style: .continuous)
-                            .strokeBorder(Color.white.opacity(0.08), lineWidth: 1)
+                            .strokeBorder(Color.white.opacity(0.10), lineWidth: 1)
                     )
             )
     }
@@ -148,31 +155,31 @@ private struct WidgetToggleRow: View {
         Button(action: onToggle) {
             HStack(spacing: 12) {
                 Circle()
-                    .fill(kind.accentColor.opacity(isVisible ? 0.9 : 0.25))
+                    .fill(Color.primary.opacity(isVisible ? 0.85 : 0.18))
                     .frame(width: 10, height: 10)
 
                 VStack(alignment: .leading, spacing: 2) {
                     HStack(spacing: 8) {
                         Text(kind.title)
                             .font(.system(size: 14, weight: .semibold, design: .rounded))
-                            .foregroundStyle(.white)
+                            .foregroundStyle(.primary)
 
                         Text(isVisible ? "ON" : "OFF")
                             .font(.caption2.weight(.semibold))
-                            .foregroundStyle(isVisible ? kind.accentColor : .white.opacity(0.55))
+                            .foregroundStyle(.secondary)
                             .padding(.horizontal, 6)
                             .padding(.vertical, 2)
-                            .background((isVisible ? kind.accentColor : .white).opacity(isVisible ? 0.14 : 0.06), in: Capsule())
+                            .background(Color.white.opacity(0.06), in: Capsule())
                     }
                     Text(kind.subtitle)
                         .font(.caption)
-                        .foregroundStyle(.white.opacity(0.65))
+                        .foregroundStyle(.secondary)
                 }
 
                 Spacer()
 
                 Image(systemName: isVisible ? "checkmark.circle.fill" : "circle")
-                    .foregroundStyle(isVisible ? kind.accentColor : .white.opacity(0.25))
+                    .foregroundStyle(isVisible ? .primary : .secondary)
             }
             .padding(.vertical, 8)
             .contentShape(Rectangle())

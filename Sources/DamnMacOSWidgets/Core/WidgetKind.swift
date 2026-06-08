@@ -1,5 +1,4 @@
 import Foundation
-import SwiftUI
 
 enum WidgetKind: String, CaseIterable, Identifiable, Codable {
     case now
@@ -70,24 +69,6 @@ enum WidgetKind: String, CaseIterable, Identifiable, Codable {
         true
     }
 
-    var accentColor: Color {
-        switch self {
-        case .now: Color(red: 0.98, green: 0.60, blue: 0.25)
-        case .todo: Color(red: 0.18, green: 0.78, blue: 0.72)
-        case .note: Color(red: 0.42, green: 0.73, blue: 0.98)
-        case .focus: Color(red: 0.96, green: 0.36, blue: 0.49)
-        case .calendar: Color(red: 0.72, green: 0.54, blue: 0.98)
-        case .github: Color(red: 0.48, green: 0.90, blue: 0.52)
-        }
-    }
-
-    var accentGlow: Color {
-        accentColor.opacity(0.32)
-    }
-
-    var accentSoftBackground: Color {
-        accentColor.opacity(0.15)
-    }
 }
 
 struct WidgetFrame: Codable, Equatable {

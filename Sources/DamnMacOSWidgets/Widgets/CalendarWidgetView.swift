@@ -10,7 +10,7 @@ struct CalendarWidgetView: View {
                     VStack(alignment: .leading, spacing: 2) {
                         Text(widgetManager.calendarStatusText)
                             .font(.caption)
-                            .foregroundStyle(.white.opacity(0.62))
+                            .foregroundStyle(.secondary)
                             .fixedSize(horizontal: false, vertical: true)
                     }
 
@@ -21,13 +21,13 @@ struct CalendarWidgetView: View {
                     }
                     .buttonStyle(.borderless)
                     .font(.caption.weight(.medium))
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.primary)
                 }
 
                 if widgetManager.calendarEvents.isEmpty {
                     Text("No upcoming events are loaded yet.")
                         .font(.subheadline)
-                        .foregroundStyle(.white.opacity(0.42))
+                        .foregroundStyle(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
                 } else {
                     ScrollView {
@@ -59,7 +59,7 @@ private struct CalendarEventRow: View {
 
                 Text(event.timeRangeText)
                     .font(.caption)
-                    .foregroundStyle(.white.opacity(0.68))
+                    .foregroundStyle(.secondary)
             }
 
             HStack(spacing: 6) {
@@ -70,12 +70,12 @@ private struct CalendarEventRow: View {
                 }
             }
             .font(.caption2)
-            .foregroundStyle(.white.opacity(0.45))
+            .foregroundStyle(.secondary)
             .lineLimit(1)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.vertical, 8)
         .padding(.horizontal, 10)
-        .background(.white.opacity(0.06), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
     }
 }

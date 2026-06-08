@@ -20,37 +20,27 @@ struct WidgetChrome<Content: View>: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .background {
             RoundedRectangle(cornerRadius: 22, style: .continuous)
-                .fill(
-                    LinearGradient(
-                        colors: [
-                            Color(red: 0.06, green: 0.07, blue: 0.10),
-                            Color(red: 0.09, green: 0.10, blue: 0.14),
-                            kind.accentSoftBackground.opacity(0.6)
-                        ],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
-                .overlay(alignment: .topTrailing) {
-                    Circle()
-                        .fill(kind.accentGlow)
-                        .frame(width: 96, height: 96)
-                        .blur(radius: 30)
-                        .offset(x: 28, y: -18)
-                }
-                .overlay(alignment: .bottomLeading) {
-                    RoundedRectangle(cornerRadius: 999, style: .continuous)
-                        .fill(kind.accentColor.opacity(0.18))
-                        .frame(width: 78, height: 3)
-                        .padding(.leading, 18)
-                        .padding(.bottom, 14)
+                .fill(.ultraThinMaterial)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 22, style: .continuous)
+                        .fill(
+                            LinearGradient(
+                                colors: [
+                                    Color.white.opacity(0.18),
+                                    Color.white.opacity(0.03),
+                                    Color.black.opacity(0.10)
+                                ],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .blendMode(.screen)
                 }
                 .overlay {
                     RoundedRectangle(cornerRadius: 22, style: .continuous)
-                        .strokeBorder(Color.white.opacity(0.12), lineWidth: 1)
+                        .strokeBorder(Color.white.opacity(0.16), lineWidth: 1)
                 }
-                .shadow(color: .black.opacity(0.28), radius: 22, x: 0, y: 14)
-                .shadow(color: kind.accentGlow.opacity(0.18), radius: 12, x: 0, y: 0)
+                .shadow(color: .black.opacity(0.20), radius: 20, x: 0, y: 12)
         }
     }
 
@@ -58,30 +48,30 @@ struct WidgetChrome<Content: View>: View {
         HStack(alignment: .firstTextBaseline, spacing: 10) {
             ZStack {
                 Circle()
-                    .fill(kind.accentColor.opacity(0.22))
+                    .fill(Color.white.opacity(0.10))
                     .frame(width: 28, height: 28)
                 Image(systemName: kind.icon)
                     .font(.system(size: 12, weight: .semibold))
-                    .foregroundStyle(kind.accentColor)
+                    .foregroundStyle(.primary)
             }
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(kind.title)
                     .font(.system(size: 14, weight: .semibold, design: .rounded))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.primary)
                 Text(kind.subtitle)
                     .font(.caption2)
-                    .foregroundStyle(.white.opacity(0.60))
+                    .foregroundStyle(.secondary)
             }
 
             Spacer()
 
             Text(kind.title.uppercased())
                 .font(.caption2.weight(.semibold))
-                .foregroundStyle(kind.accentColor)
+                .foregroundStyle(.secondary)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 5)
-                .background(kind.accentColor.opacity(0.12), in: Capsule())
+                .background(Color.white.opacity(0.06), in: Capsule())
         }
     }
 
@@ -90,12 +80,12 @@ struct WidgetChrome<Content: View>: View {
 
         return Image(systemName: "arrow.up.left.and.arrow.down.right")
             .font(.system(size: 10, weight: .semibold))
-            .foregroundStyle(kind.accentColor.opacity(0.9))
+            .foregroundStyle(.secondary)
             .frame(width: 22, height: 22)
             .background(Color.white.opacity(0.06), in: RoundedRectangle(cornerRadius: 7, style: .continuous))
             .overlay(
                 RoundedRectangle(cornerRadius: 7, style: .continuous)
-                    .strokeBorder(kind.accentColor.opacity(0.24), lineWidth: 1)
+                    .strokeBorder(Color.white.opacity(0.14), lineWidth: 1)
             )
             .padding(8)
             .contentShape(Rectangle())

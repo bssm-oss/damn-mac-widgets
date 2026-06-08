@@ -10,14 +10,14 @@ struct NoteWidgetView: View {
                 if widgetManager.appState.noteText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     Text("Capture the stray thought.")
                         .font(.system(size: 14, weight: .medium, design: .rounded))
-                        .foregroundStyle(.white.opacity(0.28))
+                        .foregroundStyle(.secondary)
                         .padding(.top, 8)
                         .padding(.leading, 5)
                 }
 
                 TextEditor(text: binding)
                     .font(.system(size: 15, weight: .medium, design: .rounded))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.primary)
                     .scrollContentBackground(.hidden)
                     .background(.clear)
                     .focused($isFocused)
@@ -25,7 +25,7 @@ struct NoteWidgetView: View {
             }
             .frame(minHeight: 120)
             .padding(10)
-            .background(Color.white.opacity(0.05), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
         }
     }
 

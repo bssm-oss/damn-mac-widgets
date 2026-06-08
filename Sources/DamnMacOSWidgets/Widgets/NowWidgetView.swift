@@ -9,18 +9,18 @@ struct NowWidgetView: View {
             VStack(alignment: .leading, spacing: 10) {
                 Text("Right now")
                     .font(.caption2.weight(.semibold))
-                    .foregroundStyle(.white.opacity(0.55))
+                    .foregroundStyle(.secondary)
 
                 TextField("What are you working on?", text: binding, axis: .vertical)
                     .textFieldStyle(.plain)
                     .font(.system(size: 19, weight: .semibold, design: .rounded))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.primary)
                     .lineLimit(2...4)
                     .focused($isFocused)
                     .onAppear { isFocused = true }
                     .padding(.vertical, 8)
                     .padding(.horizontal, 12)
-                    .background(Color.white.opacity(0.06), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                    .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
             }
         }
     }
