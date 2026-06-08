@@ -59,6 +59,14 @@ scripts/package-app
 
 Set `CODE_SIGN_IDENTITY` if you want to sign with an actual identity instead of ad hoc signing.
 
+Build a release zip and optionally notarize it with:
+
+```bash
+scripts/release-app
+```
+
+Set `NOTARYTOOL_PROFILE` or `APPLE_ID` / `APPLE_ID_PASSWORD` / `APPLE_TEAM_ID` to enable notarization.
+
 ## Architecture
 
 ```

@@ -31,7 +31,14 @@ final class GitHubService {
             )
 
             guard userResult.terminationStatus == 0 else {
-                return GitHubActivitySnapshot.empty
+                let message = trimmedMessage(userResult.stderr).isEmpty
+                    ? "Run `gh auth login` to connect GitHub."
+                    : "GitHub auth failed: \(trimmedMessage(userResult.stderr))"
+                return GitHubActivitySnapshot(
+                    username: nil,
+                    items: [],
+                    statusMessage: message
+                )
             }
 
             let username = userResult.stdout.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -47,7 +54,9 @@ final class GitHubService {
                 return GitHubActivitySnapshot(
                     username: username.isEmpty ? nil : username,
                     items: [],
-                    statusMessage: "GitHub authenticated, but no notifications were returned."
+                    statusMessage: trimmedMessage(notificationsResult.stderr).isEmpty
+                        ? "GitHub authenticated, but no notifications were returned."
+                        : "GitHub notifications failed: \(trimmedMessage(notificationsResult.stderr))"
                 )
             }
 
@@ -76,6 +85,10 @@ final class GitHubService {
                 statusMessage: "GitHub unavailable: \(error.localizedDescription)"
             )
         }
+    }
+
+    private func trimmedMessage(_ text: String) -> String {
+        text.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }
 

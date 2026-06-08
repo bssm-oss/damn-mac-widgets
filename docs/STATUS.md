@@ -58,7 +58,8 @@ damn-mac-widgets/
 ├── LICENSE                 # MIT
 ├── .gitignore
 ├── scripts/
-│   └── package-app         # .app bundle + signing helper
+│   ├── package-app         # .app bundle + signing helper
+│   └── release-app         # release zip + optional notarization
 └── Sources/DamnMacOSWidgets/
     ├── App/
     │   ├── DamnMacOSWidgetsApp.swift   # @main, MenuBarExtra
@@ -126,8 +127,11 @@ Tests/DamnMacOSWidgetsTests/
 
 7. **앱 패키징**
    - `scripts/package-app`
+   - `scripts/release-app`
    - `.build/package/DamnMacOSWidgets.app` 생성
+   - `.build/package/DamnMacOSWidgets.zip` 생성
    - `CODE_SIGN_IDENTITY`가 있으면 실서명, 없으면 ad hoc signing
+   - notarization은 `NOTARYTOOL_PROFILE` 또는 Apple ID 계정 변수로 선택 실행
 
 8. **첫 실행 기본값**
    - Now 위젯만 켜진 상태

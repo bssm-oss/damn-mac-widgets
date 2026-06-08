@@ -35,7 +35,7 @@ enum CalendarServiceError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .denied:
-            return "Calendar access is not available."
+            return "Calendar access denied. Enable access in System Settings > Privacy & Security > Calendars."
         case .unavailable:
             return "No calendar data was returned."
         }
