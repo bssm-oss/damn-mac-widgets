@@ -18,11 +18,7 @@ struct WidgetChrome<Content: View>: View {
         }
         .padding(16)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .background(.clear)
-        .overlay {
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .strokeBorder(.white.opacity(0.14), lineWidth: 1)
-        }
+        .liquidGlassBackground(cornerRadius: 20, tintOpacity: 0.03, strokeOpacity: 0.06)
     }
 
     private var header: some View {
@@ -52,11 +48,7 @@ struct WidgetChrome<Content: View>: View {
             .font(.system(size: 10, weight: .semibold))
             .foregroundStyle(.secondary)
             .frame(width: 22, height: 22)
-            .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 7, style: .continuous))
-            .overlay(
-                RoundedRectangle(cornerRadius: 7, style: .continuous)
-                    .strokeBorder(.white.opacity(0.12), lineWidth: 1)
-            )
+            .liquidGlassBackground(cornerRadius: 7, tintOpacity: 0.02, strokeOpacity: 0.07)
             .padding(8)
             .contentShape(Rectangle())
             .gesture(

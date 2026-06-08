@@ -67,13 +67,13 @@ damn-mac-widgets/
     ├── Core/
     │   ├── WidgetKind.swift            # 위젯 종류, 모델, AppState
     │   ├── WidgetManager.swift         # show/hide, 상태, 패널 관리
-    │   ├── WidgetPanel.swift           # 플로팅 NSPanel
+    │   ├── WidgetPanel.swift           # 데스크탑 부착 NSPanel
     │   ├── LaunchAtLoginService.swift  # SMAppService 래퍼
     │   ├── CalendarService.swift       # EventKit fetch
     │   ├── GitHubService.swift         # gh CLI notification fetch
     │   └── CommandRunner.swift         # 외부 커맨드 실행
     ├── Widgets/
-    │   ├── WidgetChrome.swift          # 공통 위젯 크롬 (vibrancy)
+    │   ├── WidgetChrome.swift          # 공통 위젯 크롬 (Liquid Glass style)
     │   ├── NowWidgetView.swift
     │   ├── TodoWidgetView.swift
     │   ├── NoteWidgetView.swift
@@ -98,7 +98,7 @@ Tests/DamnMacOSWidgetsTests/
    - `NSPanel` + desktop window level
    - 바탕화면 레이어에 붙어 있음 (Notification Center 위젯 아님)
    - 드래그로 이동, 위치 저장
-   - 시스템 vibrancy + 라운드 코너 UI
+   - Liquid Glass 스타일의 투명 재질 + 라운드 코너 UI
 
 3. **동작하는 위젯 6개**
 

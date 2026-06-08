@@ -30,22 +30,20 @@ final class WidgetPanel: NSPanel {
         isMovableByWindowBackground = true
         backgroundColor = .clear
         isOpaque = false
-        hasShadow = true
+        hasShadow = false
         hidesOnDeactivate = false
         animationBehavior = .none
         becomesKeyOnlyIfNeeded = true
 
         let hostingView = NSHostingView(rootView: content)
         hostingView.translatesAutoresizingMaskIntoConstraints = false
-        let visualEffectView = NSVisualEffectView()
-        visualEffectView.material = .underWindowBackground
-        visualEffectView.blendingMode = .behindWindow
-        visualEffectView.state = .active
-        visualEffectView.wantsLayer = true
-        visualEffectView.layer?.cornerRadius = 22
-        visualEffectView.layer?.masksToBounds = true
-        visualEffectView.addSubview(hostingView)
-        contentView = visualEffectView
+        let containerView = NSView()
+        containerView.wantsLayer = true
+        containerView.layer?.cornerRadius = 22
+        containerView.layer?.masksToBounds = true
+        containerView.layer?.backgroundColor = NSColor.clear.cgColor
+        containerView.addSubview(hostingView)
+        contentView = containerView
 
         if let contentView = contentView {
             NSLayoutConstraint.activate([

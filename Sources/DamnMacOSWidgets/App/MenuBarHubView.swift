@@ -12,14 +12,7 @@ struct MenuBarHubView: View {
         }
         .padding(14)
         .frame(width: 340)
-        .background {
-            RoundedRectangle(cornerRadius: 24, style: .continuous)
-                .fill(.ultraThinMaterial)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 24, style: .continuous)
-                        .strokeBorder(.white.opacity(0.14), lineWidth: 1)
-                )
-        }
+        .liquidGlassBackground(cornerRadius: 24, tintOpacity: 0.03, strokeOpacity: 0.06)
     }
 
     private var header: some View {
@@ -41,7 +34,7 @@ struct MenuBarHubView: View {
                 .foregroundStyle(.secondary)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 5)
-                .background(.thinMaterial, in: Capsule())
+                .liquidGlassBackground(cornerRadius: 999, tintOpacity: 0.02, strokeOpacity: 0.06)
         }
     }
 
@@ -137,7 +130,7 @@ private struct WidgetToggleRow: View {
                             .foregroundStyle(.secondary)
                             .padding(.horizontal, 6)
                             .padding(.vertical, 2)
-                            .background(.thinMaterial, in: Capsule())
+                            .liquidGlassBackground(cornerRadius: 999, tintOpacity: 0.02, strokeOpacity: 0.06)
                     }
                     Text(kind.subtitle)
                         .font(.caption)

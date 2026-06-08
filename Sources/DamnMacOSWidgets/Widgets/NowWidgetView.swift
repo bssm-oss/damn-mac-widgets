@@ -18,9 +18,10 @@ struct NowWidgetView: View {
                     .lineLimit(2...4)
                     .focused($isFocused)
                     .onAppear { isFocused = true }
+                    .background(Color.clear)
                     .padding(.vertical, 8)
                     .padding(.horizontal, 12)
-                    .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                    .liquidGlassBackground(cornerRadius: 14, tintOpacity: 0.02, strokeOpacity: 0.06)
             }
         }
     }

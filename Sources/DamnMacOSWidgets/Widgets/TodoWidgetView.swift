@@ -48,9 +48,10 @@ struct TodoWidgetView: View {
                         .foregroundStyle(.primary)
                         .focused($isDraftFocused)
                         .onSubmit(addDraft)
+                        .background(Color.clear)
                         .padding(.vertical, 8)
                         .padding(.horizontal, 12)
-                        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                        .liquidGlassBackground(cornerRadius: 12, tintOpacity: 0.02, strokeOpacity: 0.06)
 
                     Button(action: addDraft) {
                         Image(systemName: "plus")
@@ -59,7 +60,7 @@ struct TodoWidgetView: View {
                     }
                     .buttonStyle(.plain)
                     .foregroundStyle(.primary)
-                    .background(Color.white.opacity(0.08), in: Circle())
+                    .background(.clear, in: Circle())
                     .disabled(draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                 }
             }
@@ -101,6 +102,6 @@ private struct TodoRow: View {
         }
         .padding(.vertical, 8)
         .padding(.horizontal, 10)
-        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .liquidGlassBackground(cornerRadius: 12, tintOpacity: 0.02, strokeOpacity: 0.06)
     }
 }

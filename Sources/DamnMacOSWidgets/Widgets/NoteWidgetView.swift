@@ -25,7 +25,7 @@ struct NoteWidgetView: View {
             }
             .frame(minHeight: 120)
             .padding(10)
-            .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .liquidGlassBackground(cornerRadius: 16, tintOpacity: 0.02, strokeOpacity: 0.06)
         }
     }
 
