@@ -6,12 +6,22 @@ struct NowWidgetView: View {
 
     var body: some View {
         WidgetChrome(kind: .now) {
-            TextField("What are you working on?", text: binding, axis: .vertical)
-                .textFieldStyle(.plain)
-                .font(.title3.weight(.medium))
-                .lineLimit(2...4)
-                .focused($isFocused)
-                .onAppear { isFocused = true }
+            VStack(alignment: .leading, spacing: 10) {
+                Text("Right now")
+                    .font(.caption2.weight(.semibold))
+                    .foregroundStyle(.white.opacity(0.55))
+
+                TextField("What are you working on?", text: binding, axis: .vertical)
+                    .textFieldStyle(.plain)
+                    .font(.system(size: 19, weight: .semibold, design: .rounded))
+                    .foregroundStyle(.white)
+                    .lineLimit(2...4)
+                    .focused($isFocused)
+                    .onAppear { isFocused = true }
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 12)
+                    .background(Color.white.opacity(0.06), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+            }
         }
     }
 

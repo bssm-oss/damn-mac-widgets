@@ -10,7 +10,7 @@ struct CalendarWidgetView: View {
                     VStack(alignment: .leading, spacing: 2) {
                         Text(widgetManager.calendarStatusText)
                             .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(.white.opacity(0.62))
                             .fixedSize(horizontal: false, vertical: true)
                     }
 
@@ -27,7 +27,7 @@ struct CalendarWidgetView: View {
                 if widgetManager.calendarEvents.isEmpty {
                     Text("No upcoming events are loaded yet.")
                         .font(.subheadline)
-                        .foregroundStyle(.tertiary)
+                        .foregroundStyle(.white.opacity(0.42))
                         .fixedSize(horizontal: false, vertical: true)
                 } else {
                     ScrollView {
@@ -59,7 +59,7 @@ private struct CalendarEventRow: View {
 
                 Text(event.timeRangeText)
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.white.opacity(0.68))
             }
 
             HStack(spacing: 6) {
@@ -70,12 +70,12 @@ private struct CalendarEventRow: View {
                 }
             }
             .font(.caption2)
-            .foregroundStyle(.tertiary)
+            .foregroundStyle(.white.opacity(0.45))
             .lineLimit(1)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.vertical, 8)
         .padding(.horizontal, 10)
-        .background(.white.opacity(0.05), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+        .background(.white.opacity(0.06), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
     }
 }

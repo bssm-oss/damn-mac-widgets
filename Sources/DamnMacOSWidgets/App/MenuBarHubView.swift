@@ -4,45 +4,74 @@ struct MenuBarHubView: View {
     @EnvironmentObject private var widgetManager: WidgetManager
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: 14) {
             header
-            Divider()
-            systemControls
-            Divider()
-            widgetList
-            Divider()
+            sectionCard {
+                systemControls
+            }
+            sectionCard {
+                widgetList
+            }
             footer
         }
-        .frame(width: 280)
+        .padding(14)
+        .frame(width: 340)
+        .background {
+            RoundedRectangle(cornerRadius: 24, style: .continuous)
+                .fill(
+                    LinearGradient(
+                        colors: [
+                            Color(red: 0.05, green: 0.06, blue: 0.08),
+                            Color(red: 0.08, green: 0.09, blue: 0.12)
+                        ],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 24, style: .continuous)
+                        .strokeBorder(Color.white.opacity(0.10), lineWidth: 1)
+                )
+        }
     }
 
     private var header: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text("damn-macos-widgets")
-                .font(.headline)
-            Text("Tiny widgets for people who hate opening apps.")
-                .font(.caption)
-                .foregroundStyle(.secondary)
-                .fixedSize(horizontal: false, vertical: true)
+        HStack(alignment: .top) {
+            VStack(alignment: .leading, spacing: 8) {
+                Text("damn-macos-widgets")
+                    .font(.system(size: 19, weight: .semibold, design: .rounded))
+                    .foregroundStyle(.white)
+                Text("Small, sharp widgets that stay out of the way.")
+                    .font(.caption)
+                    .foregroundStyle(.white.opacity(0.65))
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            Spacer()
+
+            Text("LOCAL")
+                .font(.caption2.weight(.semibold))
+                .foregroundStyle(Color(red: 0.82, green: 0.90, blue: 1.0))
+                .padding(.horizontal, 8)
+                .padding(.vertical, 5)
+                .background(Color.white.opacity(0.08), in: Capsule())
         }
-        .padding(16)
     }
 
     private var systemControls: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 10) {
             Toggle(isOn: launchAtLoginBinding) {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Launch at login")
-                        .font(.subheadline)
+                        .font(.system(size: 14, weight: .semibold, design: .rounded))
+                        .foregroundStyle(.white)
                     Text(widgetManager.launchAtLoginStatusText)
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(.white.opacity(0.65))
                 }
             }
             .toggleStyle(.switch)
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
     }
 
     private var widgetList: some View {
@@ -56,11 +85,11 @@ struct MenuBarHubView: View {
                     widgetManager.toggle(kind)
                 }
                 if kind != WidgetKind.allCases.last {
-                    Divider().padding(.leading, 16)
+                    Divider()
+                        .overlay(Color.white.opacity(0.08))
                 }
             }
         }
-        .padding(.vertical, 4)
     }
 
     private var footer: some View {
@@ -83,10 +112,9 @@ struct MenuBarHubView: View {
                 NSApplication.shared.terminate(nil)
             }
         }
-        .buttonStyle(.plain)
-        .font(.caption)
-        .foregroundStyle(.secondary)
-        .padding(12)
+        .buttonStyle(.borderless)
+        .font(.caption.weight(.medium))
+        .foregroundStyle(.white.opacity(0.75))
     }
 
     private var launchAtLoginBinding: Binding<Bool> {
@@ -94,6 +122,19 @@ struct MenuBarHubView: View {
             get: { widgetManager.appState.launchAtLoginEnabled },
             set: { widgetManager.setLaunchAtLoginEnabled($0) }
         )
+    }
+
+    private func sectionCard<Content: View>(@ViewBuilder content: () -> Content) -> some View {
+        content()
+            .padding(12)
+            .background(
+                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    .fill(Color.white.opacity(0.04))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 18, style: .continuous)
+                            .strokeBorder(Color.white.opacity(0.08), lineWidth: 1)
+                    )
+            )
     }
 }
 
@@ -106,37 +147,36 @@ private struct WidgetToggleRow: View {
     var body: some View {
         Button(action: onToggle) {
             HStack(spacing: 12) {
-                Image(systemName: kind.icon)
-                    .frame(width: 20)
-                    .foregroundStyle(isAvailable ? .primary : .tertiary)
+                Circle()
+                    .fill(kind.accentColor.opacity(isVisible ? 0.9 : 0.25))
+                    .frame(width: 10, height: 10)
 
                 VStack(alignment: .leading, spacing: 2) {
-                    HStack(spacing: 6) {
+                    HStack(spacing: 8) {
                         Text(kind.title)
-                            .font(.body)
-                        if !isAvailable {
-                            Text("Soon")
-                                .font(.caption2.weight(.medium))
-                                .padding(.horizontal, 6)
-                                .padding(.vertical, 2)
-                                .background(.quaternary, in: Capsule())
-                        }
+                            .font(.system(size: 14, weight: .semibold, design: .rounded))
+                            .foregroundStyle(.white)
+
+                        Text(isVisible ? "ON" : "OFF")
+                            .font(.caption2.weight(.semibold))
+                            .foregroundStyle(isVisible ? kind.accentColor : .white.opacity(0.55))
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background((isVisible ? kind.accentColor : .white).opacity(isVisible ? 0.14 : 0.06), in: Capsule())
                     }
                     Text(kind.subtitle)
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(.white.opacity(0.65))
                 }
 
                 Spacer()
 
-                Image(systemName: isVisible ? "eye.fill" : "eye.slash")
-                    .foregroundStyle(isVisible ? Color.green : Color.secondary.opacity(0.5))
+                Image(systemName: isVisible ? "checkmark.circle.fill" : "circle")
+                    .foregroundStyle(isVisible ? kind.accentColor : .white.opacity(0.25))
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
+            .padding(.vertical, 8)
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .disabled(!isAvailable)
     }
 }

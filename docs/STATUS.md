@@ -95,8 +95,8 @@ Tests/DamnMacOSWidgetsTests/
    - Quit
 
 2. **플로팅 위젯 창**
-   - `NSPanel` + `.floating` level
-   - 바탕화면 위에 떠 있음 (Notification Center 위젯 아님)
+   - `NSPanel` + desktop window level
+   - 바탕화면 레이어에 붙어 있음 (Notification Center 위젯 아님)
    - 드래그로 이동, 위치 저장
    - `ultraThinMaterial` + 라운드 코너 UI
 

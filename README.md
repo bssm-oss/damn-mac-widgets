@@ -72,12 +72,12 @@ Set `NOTARYTOOL_PROFILE` or `APPLE_ID` / `APPLE_ID_PASSWORD` / `APPLE_TEAM_ID` t
 ```
 Sources/DamnMacOSWidgets/
 ├── App/           # Entry point, menu bar hub
-├── Core/          # Widget manager, floating panels, models
+├── Core/          # Widget manager, desktop-attached panels, models
 ├── Widgets/       # Individual widget views
 └── Storage/       # Local persistence (JSON in Application Support)
 ```
 
-Each widget is a floating `NSPanel` on the desktop — not a Notification Center widget, not a Dock app window. The menu bar app is the control hub; widgets appear where you put them.
+Each widget is a desktop-attached `NSPanel` that sits on the wallpaper — not a Notification Center widget, not a floating tool palette, not a Dock app window. The menu bar app is the control hub; widgets stay on the desktop layer.
 
 Focus, Calendar, and GitHub are implemented as separate panels:
 

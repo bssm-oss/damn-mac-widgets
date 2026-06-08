@@ -1,3 +1,4 @@
+import CoreGraphics
 import AppKit
 import SwiftUI
 
@@ -23,21 +24,22 @@ final class WidgetPanel: NSPanel {
         )
 
         title = kind.title
-        isFloatingPanel = true
-        level = .floating
-        collectionBehavior = [.canJoinAllSpaces, .stationary, .ignoresCycle]
+        isFloatingPanel = false
+        level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.desktopWindow)))
+        collectionBehavior = [.canJoinAllSpaces, .stationary, .fullScreenAuxiliary, .ignoresCycle]
         isMovableByWindowBackground = true
         backgroundColor = .clear
         isOpaque = false
         hasShadow = true
         hidesOnDeactivate = false
         animationBehavior = .none
+        becomesKeyOnlyIfNeeded = true
 
         let hostingView = NSHostingView(rootView: content)
         hostingView.translatesAutoresizingMaskIntoConstraints = false
         contentView = NSView()
         contentView?.wantsLayer = true
-        contentView?.layer?.cornerRadius = 16
+        contentView?.layer?.cornerRadius = 22
         contentView?.layer?.masksToBounds = true
         contentView?.addSubview(hostingView)
 
