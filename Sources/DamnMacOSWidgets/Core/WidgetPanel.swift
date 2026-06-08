@@ -37,13 +37,17 @@ final class WidgetPanel: NSPanel {
 
         let hostingView = NSHostingView(rootView: content)
         hostingView.translatesAutoresizingMaskIntoConstraints = false
-        contentView = NSView()
-        contentView?.wantsLayer = true
-        contentView?.layer?.cornerRadius = 22
-        contentView?.layer?.masksToBounds = true
-        contentView?.addSubview(hostingView)
+        let visualEffectView = NSVisualEffectView()
+        visualEffectView.material = .underWindowBackground
+        visualEffectView.blendingMode = .behindWindow
+        visualEffectView.state = .active
+        visualEffectView.wantsLayer = true
+        visualEffectView.layer?.cornerRadius = 22
+        visualEffectView.layer?.masksToBounds = true
+        visualEffectView.addSubview(hostingView)
+        contentView = visualEffectView
 
-        if let contentView {
+        if let contentView = contentView {
             NSLayoutConstraint.activate([
                 hostingView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
                 hostingView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),

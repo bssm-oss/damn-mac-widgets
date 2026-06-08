@@ -9,51 +9,28 @@ struct WidgetChrome<Content: View>: View {
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            VStack(alignment: .leading, spacing: 14) {
+            VStack(alignment: .leading, spacing: 12) {
                 header
                 content()
             }
 
             resizeHandle
         }
-        .padding(18)
+        .padding(16)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .background {
-            RoundedRectangle(cornerRadius: 22, style: .continuous)
-                .fill(.ultraThinMaterial)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 22, style: .continuous)
-                        .fill(
-                            LinearGradient(
-                                colors: [
-                                    Color.white.opacity(0.18),
-                                    Color.white.opacity(0.03),
-                                    Color.black.opacity(0.10)
-                                ],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                        .blendMode(.screen)
-                }
-                .overlay {
-                    RoundedRectangle(cornerRadius: 22, style: .continuous)
-                        .strokeBorder(Color.white.opacity(0.16), lineWidth: 1)
-                }
-                .shadow(color: .black.opacity(0.20), radius: 20, x: 0, y: 12)
+        .background(.clear)
+        .overlay {
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .strokeBorder(.white.opacity(0.14), lineWidth: 1)
         }
     }
 
     private var header: some View {
         HStack(alignment: .firstTextBaseline, spacing: 10) {
-            ZStack {
-                Circle()
-                    .fill(Color.white.opacity(0.10))
-                    .frame(width: 28, height: 28)
-                Image(systemName: kind.icon)
-                    .font(.system(size: 12, weight: .semibold))
-                    .foregroundStyle(.primary)
-            }
+            Image(systemName: kind.icon)
+                .font(.system(size: 12, weight: .semibold))
+                .foregroundStyle(.secondary)
+                .frame(width: 18)
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(kind.title)
@@ -65,13 +42,6 @@ struct WidgetChrome<Content: View>: View {
             }
 
             Spacer()
-
-            Text(kind.title.uppercased())
-                .font(.caption2.weight(.semibold))
-                .foregroundStyle(.secondary)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 5)
-                .background(Color.white.opacity(0.06), in: Capsule())
         }
     }
 
@@ -82,10 +52,10 @@ struct WidgetChrome<Content: View>: View {
             .font(.system(size: 10, weight: .semibold))
             .foregroundStyle(.secondary)
             .frame(width: 22, height: 22)
-            .background(Color.white.opacity(0.06), in: RoundedRectangle(cornerRadius: 7, style: .continuous))
+            .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 7, style: .continuous))
             .overlay(
                 RoundedRectangle(cornerRadius: 7, style: .continuous)
-                    .strokeBorder(Color.white.opacity(0.14), lineWidth: 1)
+                    .strokeBorder(.white.opacity(0.12), lineWidth: 1)
             )
             .padding(8)
             .contentShape(Rectangle())

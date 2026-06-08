@@ -6,12 +6,8 @@ struct MenuBarHubView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             header
-            sectionCard {
-                systemControls
-            }
-            sectionCard {
-                widgetList
-            }
+            sectionCard { systemControls }
+            sectionCard { widgetList }
             footer
         }
         .padding(14)
@@ -19,26 +15,10 @@ struct MenuBarHubView: View {
         .background {
             RoundedRectangle(cornerRadius: 24, style: .continuous)
                 .fill(.ultraThinMaterial)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 24, style: .continuous)
-                        .fill(
-                            LinearGradient(
-                                colors: [
-                                    Color.white.opacity(0.14),
-                                    Color.white.opacity(0.03),
-                                    Color.black.opacity(0.10)
-                                ],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                        .blendMode(.screen)
-                }
                 .overlay(
                     RoundedRectangle(cornerRadius: 24, style: .continuous)
-                        .strokeBorder(Color.white.opacity(0.14), lineWidth: 1)
+                        .strokeBorder(.white.opacity(0.14), lineWidth: 1)
                 )
-                .shadow(color: .black.opacity(0.22), radius: 22, x: 0, y: 12)
         }
     }
 
@@ -61,7 +41,7 @@ struct MenuBarHubView: View {
                 .foregroundStyle(.secondary)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 5)
-                .background(Color.white.opacity(0.06), in: Capsule())
+                .background(.thinMaterial, in: Capsule())
         }
     }
 
@@ -133,15 +113,7 @@ struct MenuBarHubView: View {
 
     private func sectionCard<Content: View>(@ViewBuilder content: () -> Content) -> some View {
         content()
-            .padding(12)
-            .background(
-                RoundedRectangle(cornerRadius: 18, style: .continuous)
-                    .fill(.thinMaterial)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 18, style: .continuous)
-                            .strokeBorder(Color.white.opacity(0.10), lineWidth: 1)
-                    )
-            )
+            .padding(10)
     }
 }
 
@@ -154,10 +126,6 @@ private struct WidgetToggleRow: View {
     var body: some View {
         Button(action: onToggle) {
             HStack(spacing: 12) {
-                Circle()
-                    .fill(Color.primary.opacity(isVisible ? 0.85 : 0.18))
-                    .frame(width: 10, height: 10)
-
                 VStack(alignment: .leading, spacing: 2) {
                     HStack(spacing: 8) {
                         Text(kind.title)
@@ -169,7 +137,7 @@ private struct WidgetToggleRow: View {
                             .foregroundStyle(.secondary)
                             .padding(.horizontal, 6)
                             .padding(.vertical, 2)
-                            .background(Color.white.opacity(0.06), in: Capsule())
+                            .background(.thinMaterial, in: Capsule())
                     }
                     Text(kind.subtitle)
                         .font(.caption)
@@ -181,7 +149,7 @@ private struct WidgetToggleRow: View {
                 Image(systemName: isVisible ? "checkmark.circle.fill" : "circle")
                     .foregroundStyle(isVisible ? .primary : .secondary)
             }
-            .padding(.vertical, 8)
+            .padding(.vertical, 6)
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
