@@ -4,6 +4,9 @@ enum WidgetKind: String, CaseIterable, Identifiable, Codable {
     case now
     case todo
     case note
+    case counter
+    case snippet
+    case bookmark
     case focus
     case calendar
     case github
@@ -15,6 +18,9 @@ enum WidgetKind: String, CaseIterable, Identifiable, Codable {
         case .now: "Now"
         case .todo: "Todo"
         case .note: "Note"
+        case .counter: "Counter"
+        case .snippet: "Snippet"
+        case .bookmark: "Bookmark"
         case .focus: "Focus"
         case .calendar: "Calendar"
         case .github: "GitHub"
@@ -26,6 +32,9 @@ enum WidgetKind: String, CaseIterable, Identifiable, Codable {
         case .now: "What you're working on"
         case .todo: "Simple task list"
         case .note: "Quick scratch pad"
+        case .counter: "Track a local tally"
+        case .snippet: "Save a reusable line"
+        case .bookmark: "Open a saved link"
         case .focus: "Focus timer & state"
         case .calendar: "Upcoming events"
         case .github: "Issues, PRs, activity"
@@ -37,6 +46,9 @@ enum WidgetKind: String, CaseIterable, Identifiable, Codable {
         case .now: "scope"
         case .todo: "checklist"
         case .note: "note.text"
+        case .counter: "number"
+        case .snippet: "terminal"
+        case .bookmark: "link"
         case .focus: "timer"
         case .calendar: "calendar"
         case .github: "chevron.left.forwardslash.chevron.right"
@@ -48,6 +60,9 @@ enum WidgetKind: String, CaseIterable, Identifiable, Codable {
         case .now: CGSize(width: 280, height: 120)
         case .todo: CGSize(width: 260, height: 320)
         case .note: CGSize(width: 300, height: 240)
+        case .counter: CGSize(width: 220, height: 180)
+        case .snippet: CGSize(width: 300, height: 240)
+        case .bookmark: CGSize(width: 300, height: 220)
         case .focus: CGSize(width: 220, height: 160)
         case .calendar: CGSize(width: 280, height: 300)
         case .github: CGSize(width: 300, height: 280)
@@ -59,6 +74,9 @@ enum WidgetKind: String, CaseIterable, Identifiable, Codable {
         case .now: CGSize(width: 240, height: 110)
         case .todo: CGSize(width: 240, height: 260)
         case .note: CGSize(width: 260, height: 200)
+        case .counter: CGSize(width: 200, height: 160)
+        case .snippet: CGSize(width: 260, height: 200)
+        case .bookmark: CGSize(width: 280, height: 190)
         case .focus: CGSize(width: 220, height: 160)
         case .calendar: CGSize(width: 260, height: 240)
         case .github: CGSize(width: 280, height: 220)
@@ -103,6 +121,10 @@ struct AppState: Codable, Equatable {
     var nowText: String
     var todos: [TodoItem]
     var noteText: String
+    var counterValue: Int
+    var snippetText: String
+    var bookmarkTitle: String
+    var bookmarkURL: String
     var focus: FocusTimerState
     var launchAtLoginEnabled: Bool
 
@@ -111,6 +133,10 @@ struct AppState: Codable, Equatable {
         case nowText
         case todos
         case noteText
+        case counterValue
+        case snippetText
+        case bookmarkTitle
+        case bookmarkURL
         case focus
         case launchAtLoginEnabled
     }
@@ -120,6 +146,10 @@ struct AppState: Codable, Equatable {
         nowText: String,
         todos: [TodoItem],
         noteText: String,
+        counterValue: Int = 0,
+        snippetText: String = "",
+        bookmarkTitle: String = "",
+        bookmarkURL: String = "",
         focus: FocusTimerState = .default,
         launchAtLoginEnabled: Bool = false
     ) {
@@ -127,6 +157,10 @@ struct AppState: Codable, Equatable {
         self.nowText = nowText
         self.todos = todos
         self.noteText = noteText
+        self.counterValue = counterValue
+        self.snippetText = snippetText
+        self.bookmarkTitle = bookmarkTitle
+        self.bookmarkURL = bookmarkURL
         self.focus = focus
         self.launchAtLoginEnabled = launchAtLoginEnabled
     }
@@ -137,6 +171,10 @@ struct AppState: Codable, Equatable {
         nowText = try container.decodeIfPresent(String.self, forKey: .nowText) ?? ""
         todos = try container.decodeIfPresent([TodoItem].self, forKey: .todos) ?? []
         noteText = try container.decodeIfPresent(String.self, forKey: .noteText) ?? ""
+        counterValue = try container.decodeIfPresent(Int.self, forKey: .counterValue) ?? 0
+        snippetText = try container.decodeIfPresent(String.self, forKey: .snippetText) ?? ""
+        bookmarkTitle = try container.decodeIfPresent(String.self, forKey: .bookmarkTitle) ?? ""
+        bookmarkURL = try container.decodeIfPresent(String.self, forKey: .bookmarkURL) ?? ""
         focus = try container.decodeIfPresent(FocusTimerState.self, forKey: .focus) ?? .default
         launchAtLoginEnabled = try container.decodeIfPresent(Bool.self, forKey: .launchAtLoginEnabled) ?? false
     }
@@ -147,6 +185,10 @@ struct AppState: Codable, Equatable {
         try container.encode(nowText, forKey: .nowText)
         try container.encode(todos, forKey: .todos)
         try container.encode(noteText, forKey: .noteText)
+        try container.encode(counterValue, forKey: .counterValue)
+        try container.encode(snippetText, forKey: .snippetText)
+        try container.encode(bookmarkTitle, forKey: .bookmarkTitle)
+        try container.encode(bookmarkURL, forKey: .bookmarkURL)
         try container.encode(focus, forKey: .focus)
         try container.encode(launchAtLoginEnabled, forKey: .launchAtLoginEnabled)
     }
@@ -156,6 +198,10 @@ struct AppState: Codable, Equatable {
         nowText: "",
         todos: [],
         noteText: "",
+        counterValue: 0,
+        snippetText: "",
+        bookmarkTitle: "",
+        bookmarkURL: "",
         focus: .default,
         launchAtLoginEnabled: false
     )

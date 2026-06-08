@@ -46,7 +46,7 @@ Mac 전용 데스크탑 위젯 팩. 앱을 열지 않아도 바로 보이는 gla
 
 ### 2026-06-08 — 2차 정리
 
-초기 스캐폴드 이후, 위젯 본체와 보조 기능을 더 채워서 현재는 메뉴바 허브 + 6개 위젯 + 테스트가 동작하는 상태다.
+초기 스캐폴드 이후, 위젯 본체와 보조 기능을 더 채워서 현재는 메뉴바 허브 + 9개 위젯 + 테스트가 동작하는 상태다.
 
 #### 프로젝트 파일
 
@@ -77,6 +77,9 @@ damn-mac-widgets/
     │   ├── NowWidgetView.swift
     │   ├── TodoWidgetView.swift
     │   ├── NoteWidgetView.swift
+    │   ├── CounterWidgetView.swift
+    │   ├── SnippetWidgetView.swift
+    │   ├── BookmarkWidgetView.swift
     │   ├── FocusWidgetView.swift
     │   ├── CalendarWidgetView.swift
     │   └── GitHubWidgetView.swift
@@ -97,7 +100,7 @@ Tests/DamnMacOSWidgetsTests/
 2. **데스크탑 위젯 창**
    - `NSPanel` + desktop window level
    - 바탕화면 레이어에 붙어 있음 (Notification Center 위젯 아님)
-   - 드래그로 이동, 위치 저장
+   - 이동 핸들로 이동, `- / +`와 리사이즈 핸들로 크기 조절, 위치 저장
    - SwiftUI `glassEffect` 기반 Liquid Glass + 라운드 코너 UI
 
 3. **동작하는 위젯 6개**
@@ -113,7 +116,7 @@ Tests/DamnMacOSWidgetsTests/
 
 4. **로컬 저장**
    - 경로: `~/Library/Application Support/damn-macos-widgets/state.json`
-   - 저장 내용: 위젯 on/off, 창 위치/크기, Now/Todo/Note 데이터
+   - 저장 내용: 위젯 on/off, 창 위치/크기, Now/Todo/Note/Counter/Snippet/Bookmark 데이터
    - 300ms debounce 후 atomic write
 
 5. **자동화 테스트**
@@ -157,9 +160,12 @@ WidgetManager ──► LocalStore (state.json)
        ├── WidgetPanel (Now)      ──► NowWidgetView
        ├── WidgetPanel (Todo)     ──► TodoWidgetView
        ├── WidgetPanel (Note)     ──► NoteWidgetView
+       ├── WidgetPanel (Counter)  ──► CounterWidgetView
+       ├── WidgetPanel (Snippet)  ──► SnippetWidgetView
+       ├── WidgetPanel (Bookmark) ──► BookmarkWidgetView
        ├── WidgetPanel (Focus)    ──► FocusWidgetView
        ├── WidgetPanel (Calendar) ──► CalendarWidgetView
-       └── WidgetPanel (GitHub)    ──► GitHubWidgetView
+       └── WidgetPanel (GitHub)   ──► GitHubWidgetView
 ```
 
 - **WidgetKind:** 위젯 enum + `AppState` / `TodoItem` 모델
@@ -177,6 +183,9 @@ WidgetManager ──► LocalStore (state.json)
 | Now | ✅ 동작 | 지금 하고 있는 작업 |
 | Todo | ✅ 동작 | 간단한 할 일 |
 | Note | ✅ 동작 | 빠른 메모 |
+| Counter | ✅ 동작 | 로컬 카운터 |
+| Snippet | ✅ 동작 | 재사용 문구 / 커맨드 |
+| Bookmark | ✅ 동작 | 저장된 링크 |
 | Focus | ✅ 동작 | 집중 상태 / 타이머 |
 | Calendar | ✅ 동작 | EventKit 일정 |
 | GitHub | ✅ 동작 | 이슈 / PR / 잔디 / 알림 |
@@ -219,7 +228,7 @@ swift build
 - [ ] Dock 아이콘 없음
 - [ ] 메뉴바 격자 아이콘 표시
 - [ ] 첫 실행 시 Now 위젯 1개 표시
-- [ ] Now / Todo / Note 토글 동작
+- [ ] Now / Todo / Note / Counter / Snippet / Bookmark 토글 동작
 - [ ] Show All / Hide All 동작
 - [ ] 위젯 드래그 이동
 
@@ -228,6 +237,9 @@ swift build
 - **Now:** 텍스트 입력
 - **Todo:** 추가 / 완료 / 삭제
 - **Note:** 여러 줄 메모
+- **Counter:** +/- / reset
+- **Snippet:** 텍스트 저장 / 복사
+- **Bookmark:** 제목 + URL 저장 / 열기 / 복사
 - **Focus:** 시작 / 일시정지 / 리셋
 - **Calendar:** 접근 허용 후 upcoming event 확인
 - **GitHub:** `gh auth login` 상태에서 notification 목록 확인

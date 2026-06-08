@@ -23,11 +23,22 @@ final class DamnMacOSWidgetsTests: XCTestCase {
                         origin: CGPoint(x: 42, y: 84),
                         size: CGSize(width: 280, height: 120)
                     )
+                ),
+                WidgetKind.counter.rawValue: WidgetState(
+                    isVisible: false,
+                    frame: WidgetFrame(
+                        origin: CGPoint(x: 120, y: 160),
+                        size: CGSize(width: 220, height: 180)
+                    )
                 )
             ],
             nowText: "Ship it",
             todos: [TodoItem(title: "Write tests", isDone: false)],
             noteText: "Keep moving",
+            counterValue: 7,
+            snippetText: "swift test",
+            bookmarkTitle: "Docs",
+            bookmarkURL: "https://example.com/docs",
             focus: FocusTimerState(
                 durationSeconds: 1_500,
                 remainingSeconds: 1_200,
@@ -85,10 +96,18 @@ final class DamnMacOSWidgetsTests: XCTestCase {
         manager.updateNow("A better note")
         manager.addTodo("Write docs")
         manager.updateNote("Scratchpad")
+        manager.incrementCounter()
+        manager.updateSnippet("pnpm test")
+        manager.updateBookmarkTitle("Repo")
+        manager.updateBookmarkURL("https://github.com")
 
         XCTAssertEqual(manager.appState.nowText, "A better note")
         XCTAssertEqual(manager.appState.todos.count, 1)
         XCTAssertEqual(manager.appState.todos.first?.title, "Write docs")
         XCTAssertEqual(manager.appState.noteText, "Scratchpad")
+        XCTAssertEqual(manager.appState.counterValue, 1)
+        XCTAssertEqual(manager.appState.snippetText, "pnpm test")
+        XCTAssertEqual(manager.appState.bookmarkTitle, "Repo")
+        XCTAssertEqual(manager.appState.bookmarkURL, "https://github.com")
     }
 }

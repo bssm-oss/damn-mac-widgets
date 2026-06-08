@@ -115,6 +115,39 @@ final class WidgetManager: ObservableObject {
         scheduleSave()
     }
 
+    func incrementCounter() {
+        updateCounter(appState.counterValue + 1)
+    }
+
+    func decrementCounter() {
+        updateCounter(max(0, appState.counterValue - 1))
+    }
+
+    func resetCounter() {
+        updateCounter(0)
+    }
+
+    func updateSnippet(_ text: String) {
+        var state = appState
+        state.snippetText = text
+        appState = state
+        scheduleSave()
+    }
+
+    func updateBookmarkTitle(_ text: String) {
+        var state = appState
+        state.bookmarkTitle = text
+        appState = state
+        scheduleSave()
+    }
+
+    func updateBookmarkURL(_ text: String) {
+        var state = appState
+        state.bookmarkURL = text
+        appState = state
+        scheduleSave()
+    }
+
     func resize(_ kind: WidgetKind, to size: CGSize) {
         let clampedSize = constrainedSize(size, for: kind)
 
@@ -273,6 +306,12 @@ final class WidgetManager: ObservableObject {
                 TodoWidgetView()
             case .note:
                 NoteWidgetView()
+            case .counter:
+                CounterWidgetView()
+            case .snippet:
+                SnippetWidgetView()
+            case .bookmark:
+                BookmarkWidgetView()
             case .focus:
                 FocusWidgetView()
             case .calendar:
@@ -377,6 +416,13 @@ final class WidgetManager: ObservableObject {
             width: max(minimum.width, size.width),
             height: max(minimum.height, size.height)
         )
+    }
+
+    private func updateCounter(_ value: Int) {
+        var state = appState
+        state.counterValue = value
+        appState = state
+        scheduleSave()
     }
 }
 

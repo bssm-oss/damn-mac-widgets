@@ -18,6 +18,9 @@ A collection of small, glanceable desktop widgets for macOS. No login, no cloud 
 | **Now** | ✅ | What you're working on right now |
 | **Todo** | ✅ | Simple task list |
 | **Note** | ✅ | Quick scratch pad |
+| **Counter** | ✅ | Local tally with increment/decrement |
+| **Snippet** | ✅ | Reusable line or command snippet |
+| **Bookmark** | ✅ | Saved local link with open/copy |
 | **Focus** | ✅ | Focus state & timer |
 | **Calendar** | ✅ | Upcoming events at a glance |
 | **GitHub** | ✅ | Issues, PRs, contributions |
@@ -77,7 +80,13 @@ Sources/DamnMacOSWidgets/
 └── Storage/       # Local persistence (JSON in Application Support)
 ```
 
-Each widget is a desktop-attached `NSPanel` that sits on the wallpaper — not a Notification Center widget, not a floating tool palette, not a Dock app window. The menu bar app is the control hub; widgets stay on the desktop layer.
+Each widget is a desktop-attached `NSPanel` that sits on the wallpaper — not a Notification Center widget, not a floating tool palette, not a Dock app window. The menu bar app is the control hub; widgets stay on the desktop layer. Use the move handle to reposition a widget and the `- / +` controls to make it smaller or larger.
+
+Counter, Snippet, and Bookmark are pure local-state widgets:
+
+- **Counter** keeps a small persistent tally with +/- controls.
+- **Snippet** stores a reusable line of text and copies it to the clipboard.
+- **Bookmark** stores a title plus URL and can open or copy the saved link.
 
 Focus, Calendar, and GitHub are implemented as separate panels:
 
